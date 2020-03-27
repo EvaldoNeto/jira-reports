@@ -2,16 +2,13 @@ from pathlib import Path
 
 import os
 
-class GenericFunctions:
-    def __init__(self):
-        pass
+'''Create a directory in $home/$user//Documents/jira/reports'''
+def create_directory():
+    path = (str(Path.home()) + "/Documents/jira/reports")
 
-    def create_directory(self):
-        path = (str(Path.home()) + "/Documents/jira/reports")
-
-        try:
-            os.makedirs(path)
-        except FileExistsError:
-            print("The directory {} already exists".format(path))
-        except OSError:
-            print ("Creation of the directory {} failed".format(path))
+    try:
+        os.makedirs(path)
+    except FileExistsError:
+        print("The directory {} already exists".format(path))
+    except OSError:
+        print ("Creation of the directory {} failed".format(path))

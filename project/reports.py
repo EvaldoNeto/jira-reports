@@ -1,6 +1,7 @@
+"""
+Main model to call functions and run the projects
+"""
+
 import utils
 
-utils = utils.GenericFunctions()
-
-print("Creating directory...")
 utils.create_directory()
