@@ -1,33 +1,53 @@
+"""
+Generic functions model
+"""
+
 from pathlib import Path
 
-import pdfkit
 import os
-import datetime
 import sys
+import datetime
 import shutil
+import pdfkit
 
-#Create a directory in $home/$user//Documents/jira/reports
-def create_main_directory():
+def create_directory():
+    """
+    Function to create a directory in:
+    $home/$user/Documents/jira/reports/year/month/day
+    """
+
     path = (str(Path.home()) + "/Documents/jira/reports")
 
+    for i in range(0, 3):
+        sub_date = str(datetime.datetime.now().isoformat().split("-")[i].split("T")[0])
+        path = path + str("/" + sub_date)
+
+        try:
+            os.makedirs(path)
+        except FileExistsError:
+            if i == 2:
+                print("The directory {} already exists".format(path))
+        except OSError:
+            print("Creation of the directory {} failed".format(path))
+            sys.exit()
+
+    return path
+
+def create_infos_pdf():
+    """
+    Function to create a pdf
+    To consult: https://github.com/JazzCore/python-pdfkit
+    """
+
+    date_info = datetime.datetime.now().isoformat().split("T")[1].split(":")
+    doc = str("report_" + date_info[0] + "h" + date_info[1] + "min.pdf")
+    doc_path = Path(create_directory() + "/" + doc)
+
     try:
-        os.makedirs(path)
-    except FileExistsError:
-        print("The directory {} already exists".format(path))
-    except OSError:
-        print ("Creation of the directory {} failed".format(path))
-
-def create_date_directory():
-    path = (str(Path.home()) + "/Documents/jira/reports")
-
-# Create a pdf, to consult: https://github.com/JazzCore/python-pdfkit
-def create__infos_pdf()
-    iso_date = datetime.datetime.now().isoformat()
-    doc = str("report-" + iso_date.replace("T", "_").replace("-", "_").split(":")[0] + ".pdf")
-
-    try:
+        if doc_path.exists():
+            os.remove(doc_path)
         pdfkit.from_string('Pandas lib results here, but using other function', doc)
-        shutil.move(doc, path)
+        shutil.move(doc, str(doc_path).split("report_")[0])
     except IOError:
         print("No wkhtmltopdf executable found")
         sys.exit()
