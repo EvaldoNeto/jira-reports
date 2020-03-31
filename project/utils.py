@@ -7,7 +7,6 @@ from pathlib import Path
 import os
 import sys
 import datetime
-import shutil
 import pdfkit
 
 def create_directory():
@@ -18,18 +17,15 @@ def create_directory():
 
     path = (str(Path.home()) + "/Documents/jira/reports")
 
+    # In this loop, geted datetime in isoformat, example: 2020-03-31T11:54:10.883115 and
+    # is splited two times, firstly on '-' to get year/month/day and then to remove all after 'T'
+    # on each iterate, incremented path with the new sub-date
     for i in range(0, 3):
         sub_date = str(datetime.datetime.now().isoformat().split("-")[i].split("T")[0])
         path = path + str("/" + sub_date)
 
-        try:
+        if not os.path.exists(path):
             os.makedirs(path)
-        except FileExistsError:
-            if i == 2:
-                print("The directory {} already exists".format(path))
-        except OSError:
-            print("Creation of the directory {} failed".format(path))
-            sys.exit()
 
     return path
 
@@ -46,8 +42,7 @@ def create_infos_pdf():
     try:
         if doc_path.exists():
             os.remove(doc_path)
-        pdfkit.from_string('Pandas lib results here, but using other function', doc)
-        shutil.move(doc, str(doc_path).split("report_")[0])
+        pdfkit.from_string('Pandas lib results here, but using other function', doc_path)
     except IOError:
         print("No wkhtmltopdf executable found")
         sys.exit()
