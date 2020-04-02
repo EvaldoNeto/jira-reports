@@ -9,7 +9,7 @@ import sys
 import datetime
 import pdfkit
 
-def create_directory():
+def create_directory(date):
     """
     Function to create a directory in:
     $home/$user/Documents/jira/reports/year/month/day
@@ -17,12 +17,8 @@ def create_directory():
 
     path = (str(Path.home()) + "/Documents/jira/reports")
 
-    # In this loop, geted datetime in isoformat, example: 2020-03-31T11:54:10.883115 and
-    # is splited two times, firstly on '-' to get year/month/day and then to remove all after 'T'
-    # on each iterate, incremented path with the new sub-date
     for i in range(0, 3):
-        sub_date = str(datetime.datetime.now().isoformat().split("-")[i].split("T")[0])
-        path = path + str("/" + sub_date)
+        path = (path + "/" + date[i])
 
         if not os.path.exists(path):
             os.makedirs(path)
@@ -35,9 +31,14 @@ def create_infos_pdf():
     To consult: https://github.com/JazzCore/python-pdfkit
     """
 
-    date_info = datetime.datetime.now().isoformat().split("T")[1].split(":")
-    doc = str("report_" + date_info[0] + "h" + date_info[1] + "min.pdf")
-    doc_path = Path(create_directory() + "/" + doc)
+    date = str(datetime.datetime.now())
+    
+    # The datetime, example: 2020-03-31 11:54:10.883115 and
+    # is replace two times, firstly on ' ' to '-' and then ':' to '-', afeter
+    # is splited on '-', result: ['2020'],['03'],['31'],['11'],['54'],['10.883115']
+    sub_date = date.replace(" ", "-").replace(":", "-").split("-")
+    doc = (f"report_{sub_date[3]}h{sub_date[4]}min.pdf")
+    doc_path = Path(create_directory(sub_date) + "/" + doc)
 
     try:
         if doc_path.exists():
