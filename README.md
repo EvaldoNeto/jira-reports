@@ -42,6 +42,15 @@ sudo apt-get install wkhtmltopdf
 brew install caskroom/cask/wkhtmltopdf
 ```
 
+4. Create a file called .env in directory **home/$user**, set your jira credentials in it, like this:
+
+```
+WORKSPACE=https://myServer.myDomain.net/
+
+EMAIL=myEmail@myDomain.com
+
+TOKEN=42isTheNumberOfLife
+```
 # Report
 
 The result expected is a pdf file containing:
