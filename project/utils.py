@@ -32,7 +32,7 @@ def create_infos_pdf():
     """
 
     date = str(datetime.datetime.now())
-    
+
     # The datetime, example: 2020-03-31 11:54:10.883115
     # is replace two times, firstly on ' ' to '-' and then ':' to '-', after
     # is splited on '-', result: ['2020'],['03'],['31'],['11'],['54'],['10.883115']
