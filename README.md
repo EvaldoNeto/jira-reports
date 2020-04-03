@@ -2,18 +2,18 @@
 
 Project to extract information and build reports from jira in pdf. 
 
-It shall contain a main file called report.py and it is to be executed like this:
+It shall contain a main file called report.py and it is to be executed like this, you need **python version 3.4+**:
 
 ```
 python3 reports.py
 ```
 
-A file named report-yyyy_mm_dd_hh.pdf it is to be generated in $HOME/Documents/jira/reports
-If the folder does not exist it shall be created. For instance, on in 2020/11/21 at 14:37 the file shall be named report-2020_11_21_14.pdf
+A file named report_$HOURhMINUTESmin.pdf it is to be generated in $HOME/Documents/jira/reports/$year/$month/$day
+If the folder does not exist it shall be created. For instance, on in 2020/11/21 at 14:37 the file shall be named report_14h37min.pdf
 
 # Setup
 
-1) Install and set the virtual enviroment
+1. Install and set the virtual enviroment
 
 ```
 python3 -m venv env
@@ -22,10 +22,24 @@ source env/bin/activate
 
 For more information on python virtual enviroments: https://realpython.com/python-virtual-environments-a-primer/
 
-2) Install the packages required
+2. Install the packages required
    
 ```
 pip3 install -r requirements.txt
+```
+
+3. Install wkhtmltopdf:
+
+* Debian/Ubuntu:
+
+```
+sudo apt-get install wkhtmltopdf
+```
+
+* macOS:
+
+```
+brew install caskroom/cask/wkhtmltopdf
 ```
 
 # Report
