@@ -2,39 +2,12 @@
 Generic functions model
 """
 
+from pathlib import Path
+
 import os
 import sys
 import datetime
-
-from pathlib import Path
-from jira import JIRA
-from dotenv import load_dotenv
-
 import pdfkit
-
-ENV_PATH = Path.home()/'.env'
-load_dotenv(dotenv_path=ENV_PATH)
-
-WORKSPACE = os.getenv("WORKSPACE")
-EMAIL = os.getenv("EMAIL")
-TOKEN = os.getenv("TOKEN")
-
-class JiraConfig:
-    """
-    Class to establish jira connection and functions to get projects data
-    """
-    def __init__(self):
-        self.jira = JIRA(server=WORKSPACE, basic_auth=(EMAIL, TOKEN))
-
-    def test1(self):
-        """
-        TEST
-        """
-
-    def test2(self):
-        """
-        TEST
-        """
 
 def create_directory(date):
     """
@@ -52,7 +25,7 @@ def create_directory(date):
 
     return path
 
-def create_infos_pdf():
+def create_infos_pdf(data):
     """
     Function to create a pdf
     To consult: https://github.com/JazzCore/python-pdfkit
@@ -70,7 +43,7 @@ def create_infos_pdf():
     try:
         if doc_path.exists():
             os.remove(doc_path)
-        pdfkit.from_string('Pandas lib results here, but using other function', doc_path)
+        pdfkit.from_string(data, doc_path)
     except IOError:
         print("No wkhtmltopdf executable found")
         sys.exit()
