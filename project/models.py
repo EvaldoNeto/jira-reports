@@ -3,14 +3,16 @@ Virtual Objects definitions
 """
 
 from dataclasses import dataclass
+from typing import List
+from pydantic import BaseModel
 
 @dataclass
-class TIProj:
+class TIProj(BaseModel):
     """
     Class to data define on TI Project
     """
-    issue: str
-    priority: str
+    issue: List[str] = None
+    priority: List[str] = None
 
     def to_json(self):
         """
