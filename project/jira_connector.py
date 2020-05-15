@@ -5,6 +5,7 @@ Model to define the dotenv location and credencials to connect with Jira
 from pathlib import Path
 
 import os
+import sys
 
 from dotenv import load_dotenv
 from jira import JIRA
@@ -20,5 +21,11 @@ def open_connection():
     """
     Function to establish connection with Jira
     """
-    jira = JIRA(server=WORKSPACE, basic_auth=(EMAIL, TOKEN))
-    return jira
+
+    try:
+        jira = JIRA(server=WORKSPACE, basic_auth=(EMAIL, TOKEN))
+        print("Connecting to Jira...")
+        return jira
+    except Exception:
+        print("Could not connect to Jira, incorrect credencials!")
+        sys.exit()
