@@ -25,7 +25,7 @@ def create_directory(date):
 
     return path
 
-def create_infos_pdf():
+def create_infos_pdf(data):
     """
     Function to create a pdf
     To consult: https://github.com/JazzCore/python-pdfkit
@@ -43,7 +43,7 @@ def create_infos_pdf():
     try:
         if doc_path.exists():
             os.remove(doc_path)
-        pdfkit.from_string('Pandas lib results here, but using other function', doc_path)
+        pdfkit.from_string(data, doc_path)
     except IOError:
         print("No wkhtmltopdf executable found")
         sys.exit()
