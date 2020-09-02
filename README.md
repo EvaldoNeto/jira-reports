@@ -5,7 +5,7 @@ Project to extract information and build reports from jira in pdf.
 It shall contain a main file called report.py and it is to be executed like this, you need **python version 3.4+**:
 
 ```
-python3 reports.py
+python reports.py <project-number>
 ```
 
 A file named report_$HOURhMINUTESmin.pdf it is to be generated in $HOME/Documents/jira/reports/$year/$month/$day
@@ -16,7 +16,7 @@ If the folder does not exist it shall be created. For instance, on in 2020/11/21
 1. Install and set the virtual enviroment
 
 ```
-python3 -m venv env
+python -m venv env
 source env/bin/activate
 ```
 
@@ -25,7 +25,7 @@ For more information on python virtual enviroments: https://realpython.com/pytho
 2. Install the packages required
    
 ```
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Install wkhtmltopdf:
@@ -51,6 +51,12 @@ EMAIL=myEmail@myDomain.com
 
 TOKEN=42isTheNumberOfLife
 ```
+
+# Args for each project
+
+## 1. TI - Correlation between number of open issues vs priority
+## 2. CLIEN - (in production)
+
 # Report
 
 The result expected is a pdf file containing:
